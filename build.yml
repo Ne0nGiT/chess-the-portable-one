@@ -1,0 +1,23 @@
+name: Build portable exe
+on: [push, workflow_dispatch]
+jobs:
+  build:
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with: { node-version: 20 }
+      - run: npm install
+      - name: Lấy Stockfish
+        shell: bash
+        run: |
+          npm install --no-save stockfish@16.0.0
+          mkdir -p engine
+          cp node_modules/stockfish/src/*single.js engine/ || true
+          cp node_modules/stockfish/src/*single.wasm engine/ || true
+          ls engine
+      - run: npx electron-builder --win portable --publish never
+      - uses: actions/upload-artifact@v4
+        with:
+          name: CoVuaGo-portable
+          path: dist/*.exe
