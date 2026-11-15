@@ -1,0 +1,16 @@
+{
+  "name": "co-vua-go",
+  "version": "1.0.0",
+  "description": "Cờ vua gỗ - đấu Stockfish",
+  "main": "main.js",
+  "author": "Alex",
+  "scripts": { "start": "electron .", "dist": "electron-builder --win portable --publish never" },
+  "devDependencies": { "electron": "^31.0.0", "electron-builder": "^24.13.3" },
+  "build": {
+    "appId": "com.alex.covuago",
+    "productName": "CoVuaGo",
+    "files": ["main.js", "index.html", "engine/**"],
+    "win": { "target": "portable" },
+    "portable": { "artifactName": "CoVuaGo-portable.exe" }
+  }
+}
